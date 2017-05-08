@@ -33,13 +33,21 @@ module.exports.getUserByUsername = function(username, callback){
 }
 
 module.exports.addUser = function(newUser, callback){
-  bcrypt.genSalt(10, (err, salt) => {
-    if(err) throw err;
-    bcrypt.hash(newUser.password, salt, (err, hash) => {
-      if(err) throw err;
-      newUser.password = hash;
-      newUser.save(callback);
-    });
+  User.findOne({username: newUser.username}, (err, match) => {
+     if(err) throw err;
+     if(match){
+       callback("User taken");
+       return false;
+     }else{
+      bcrypt.genSalt(10, (err, salt) => {
+        if(err) throw err;
+        bcrypt.hash(newUser.password, salt, (err, hash) => {
+          if(err) throw err;
+          newUser.password = hash;
+          newUser.save(callback);
+        });
+      });
+    } 
   });
 }
 
