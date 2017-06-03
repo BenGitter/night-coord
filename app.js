@@ -5,8 +5,10 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const passport = require("passport");
 const mongoose = require("mongoose");
+const request = require("request");
 
 const config = require("./config/database");
+const yelp = require("./config/yelp");
 
 // Mongoose
 mongoose.connect(config.database);
@@ -44,6 +46,26 @@ app.get("/", (req, res) => {
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "public/index.html"));
+});
+
+// Get Yelp token
+let access_token = "";
+request.post("https://api.yelp.com/oauth2/token", { form: {
+  grant_type: "client_credentials",
+  client_id: yelp.client_id,
+  client_secret: yelp.client_secret
+}}, (err, res, body) => {
+  // console.log(JSON.parse(body));
+  access_token = JSON.parse(body).access_token;
+  // console.log(access_token);
+
+  request.get("https://api.yelp.com/v3/businesses/search?location=Rotterdam", {
+    auth: {
+      "bearer": access_token
+    }
+  }, (err, res, body) => {
+    console.log(body);
+  })
 });
 
 // Start server
