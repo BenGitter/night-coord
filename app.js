@@ -41,12 +41,20 @@ require("./config/passport")(passport);
 app.use("/users", users);
 
 app.get("/", (req, res) => {
-  res.send("Invalid Endpoint");
+  request.get("https://api.yelp.com/v3/businesses/search?categories=bars&location=Rotterdam", {
+    auth: {
+      "bearer": access_token
+    }
+  }, (err, resp, body) => {
+    res.json(JSON.parse(body));
+  })
+  // res.send("Invalid Endpoint");
 });
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "public/index.html"));
 });
+
 
 // Get Yelp token
 let access_token = "";
@@ -59,16 +67,8 @@ request.post("https://api.yelp.com/oauth2/token", { form: {
   access_token = JSON.parse(body).access_token;
   // console.log(access_token);
 
-  request.get("https://api.yelp.com/v3/businesses/search?location=Rotterdam", {
-    auth: {
-      "bearer": access_token
-    }
-  }, (err, res, body) => {
-    console.log(body);
-  })
-});
-
-// Start server
-app.listen(port, () => {
-  console.log("Server started on port", port);
+  // Start server
+  app.listen(port, () => {
+    console.log("Server started on port", port);
+  });
 });
