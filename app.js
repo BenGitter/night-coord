@@ -41,7 +41,7 @@ require("./config/passport")(passport);
 app.use("/users", users);
 
 app.get("/", (req, res) => {
-  request.get("https://api.yelp.com/v3/businesses/search?categories=bars&location=Rotterdam", {
+  request.get("https://api.yelp.com/v3/businesses/search?categories=bars&limit=50&location=Rotterdam", {
     auth: {
       "bearer": access_token
     }
