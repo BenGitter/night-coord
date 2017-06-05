@@ -1,0 +1,20 @@
+.jumbotron{
+  text-align: center;
+}
+form input[type="text"]{
+  width: 300px;
+  margin-right: 5px;
+  max-width: calc(100% - 80px);
+}
+
+form input{
+  float: left;
+}
+
+form{
+  margin-top: 30px;
+  height: 50px;
+  width: 380px;
+  max-width: 100%;
+  margin: auto;
+}
