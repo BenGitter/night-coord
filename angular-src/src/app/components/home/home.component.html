@@ -5,9 +5,9 @@
     Just enter your location below and we will find all bars nearby you. 
   </p>
 
-  <form>
+  <form (submit)="onSearch()">
     <div class="form-group">
-      <input type="text" class="form-control" placeholder="Location">
+      <input type="text" class="form-control" name="location" [(ngModel)]="location" placeholder="Location">
     </div>
     <input class="btn btn-primary" type="submit" value="Search">
   </form>
