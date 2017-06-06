@@ -49,7 +49,13 @@ app.get("/api/bars/", (req, res) => {
       "bearer": access_token
     }
   }, (err, resp, body) => {
-    res.json(JSON.parse(body));
+    let json = JSON.parse(body);
+    if(json.error){
+      res.json({success: false, error: json.error.code});
+    }else{
+      res.json({success: true, data: json});
+    }
+    
   })
   // res.send("Invalid Endpoint");
 });
