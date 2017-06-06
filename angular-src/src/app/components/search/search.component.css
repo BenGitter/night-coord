@@ -1,3 +1,27 @@
+.bar{
+  margin: 15px 25px;
+  background: #EEE;
+  box-shadow: 1px 1px 5px -1px rgba(0,0,0,0.4), 0 0 5px -3px rgba(0,0,0,0.4);
+}
+
+.bar img{
+  height: 100px;
+  max-width: 100%;
+}
+
+.bar .col-xs-4, .bar .col-xs-8{
+  height: 100px;
+  padding-left: 0;
+}
+
+
+
+
+
+
+
+
+/* Loading Spinner*/
 .spinner {
   width: 40px;
   height: 40px;
