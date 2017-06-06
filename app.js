@@ -40,8 +40,11 @@ require("./config/passport")(passport);
 // Routing
 app.use("/users", users);
 
-app.get("/", (req, res) => {
-  request.get("https://api.yelp.com/v3/businesses/search?categories=bars&limit=50&location=Rotterdam", {
+app.get("/api/bars/", (req, res) => {
+  let location = req.query.location;
+  let offset = req.query.offset || 0;
+
+  request.get("https://api.yelp.com/v3/businesses/search?categories=bars&limit=50&location="+location+"&offset="+offset, {
     auth: {
       "bearer": access_token
     }
