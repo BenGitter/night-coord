@@ -14,6 +14,7 @@ import { SearchComponent } from './components/search/search.component';
 
 import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
+import { SearchService } from './services/search.service';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AuthGuard } from './guards/auth.guard';
 
@@ -45,7 +46,8 @@ const appRoutes: Routes = [
   providers: [
     ValidateService,
     AuthService,
-    AuthGuard
+    AuthGuard,
+    SearchService
   ],
   bootstrap: [AppComponent]
 })

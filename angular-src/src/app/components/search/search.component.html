@@ -1,3 +1,19 @@
 <p>
   You searched for: <i> {{ location }} </i>
 </p>
+
+<!-- Loading Spinner -->
+<div *ngIf="!bars && !error" class="spinner">
+  <div class="double-bounce1"></div>
+  <div class="double-bounce2"></div>
+</div>
+<!-- End Loading Spinner -->
+
+<ul>
+  <li *ngIf="error">
+    No bars found, please try again
+  </li>
+  <li *ngFor="let bar of bars">
+    {{ bar.id }}
+  </li>
+</ul>
