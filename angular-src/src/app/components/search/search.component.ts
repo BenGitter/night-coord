@@ -23,10 +23,11 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.location = this.activatedRoute.snapshot.params.location;
+    this.searchService.saveLastSearch(this.location);
 
     this.barSub = this.searchService.getBars(this.location).subscribe(json => {
       console.log(json);
-
+      
       if(!json.error){
         this.bars = json.data.businesses;
       }else{

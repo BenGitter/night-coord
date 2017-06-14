@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { SearchService } from '../../services/search.service';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -12,11 +14,13 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private router:Router,
-    private activatedRoute:ActivatedRoute
+    private activatedRoute:ActivatedRoute,
+    private searchService:SearchService
   ) { }
 
   ngOnInit() {
     this.location = this.activatedRoute.snapshot.queryParams.searchTerm || "";
+    this.searchService.saveLastSearch("");
   }
 
   onSearch(){
