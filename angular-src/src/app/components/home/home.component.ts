@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -10,9 +10,13 @@ export class HomeComponent implements OnInit {
 
   location: string;
 
-  constructor(private router:Router) { }
+  constructor(
+    private router:Router,
+    private activatedRoute:ActivatedRoute
+  ) { }
 
   ngOnInit() {
+    this.location = this.activatedRoute.snapshot.queryParams.searchTerm || "";
   }
 
   onSearch(){

@@ -1,6 +1,12 @@
-<p>
-  You searched for: <i> {{ location }} </i>
-</p>
+<div class="row">
+  <div class="col-xs-12">
+    <p>
+      <span (click)="onBack()" class="back">&#9664; Back</span>
+      You searched for: <i> {{ location }} </i>
+    </p>
+  </div>
+</div>
+
 
 <!-- Loading Spinner -->
 <div *ngIf="!bars && !error" class="spinner">
@@ -17,8 +23,8 @@
       </div>
     </div>
     <div *ngFor="let bar of bars" class="row bar">
-      <div class="col-xs-4">
-        <img [src]="bar.image_url" [alt]="bar.id">
+      <div class="col-xs-4 img-container">
+        <img [src]="bar.image_url || 'http://via.placeholder.com/250/ccc/ccc'" alt="">
       </div>
       <div class="col-xs-8">
         <h4>{{ bar.name }}</h4>

@@ -5,8 +5,7 @@
 }
 
 .bar img{
-  height: 100px;
-  max-width: 100%;
+  width: 100%;
 }
 
 .bar .col-xs-4, .bar .col-xs-8{
@@ -14,8 +13,16 @@
   padding-left: 0;
 }
 
+.bar .img-container{
+  overflow: hidden;
+}
 
-
+span.back{
+  margin-left: 40px;
+  margin-right: 60px;
+  font-weight: bold;
+  cursor: pointer;
+}
 
 
 
