@@ -12,7 +12,7 @@ export class SearchService {
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
 
-    return this.http.get("/api/bars?location="+location+"offset="+offset, {headers: headers})
+    return this.http.get("/api/bars?location="+location+"&offset="+offset, {headers: headers})
       .map(res => res.json());
   }
 

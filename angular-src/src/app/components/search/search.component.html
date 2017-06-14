@@ -22,6 +22,7 @@
         <h3>No bars found, please try again</h3>
       </div>
     </div>
+
     <div *ngFor="let bar of bars" class="row bar">
       <div class="col-xs-4 img-container">
         <img [src]="bar.image_url || 'http://via.placeholder.com/250/ccc/ccc'" alt="">
@@ -35,19 +36,15 @@
           </li>
           <li>
             Rating: {{ bar.rating }}/5
-          </li>
+          </li> 
         </ul>
       </div>
     </div>
+
+    <div *ngIf="showLoadExtra" class="row bar">
+      <button (click)="onLoadExtra()" class="btn btn-success btn-block">Load extra bars</button>
+    </div>
   </div>
+
 </div>
 
-
-<!--<ul>
-  <li *ngIf="error">
-    No bars found, please try again
-  </li>
-  <li *ngFor="let bar of bars">
-    {{ bar.id }}
-  </li>
-</ul>-->

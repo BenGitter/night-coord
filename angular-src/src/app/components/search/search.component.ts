@@ -11,9 +11,11 @@ import { SearchService } from '../../services/search.service';
 export class SearchComponent implements OnInit, OnDestroy {
 
   location: string;
-  bars: Array<object>;
+  bars: Array<object> = [];
   error: boolean = false;
+  offset: number = 0;
   barSub;
+  showLoadExtra: boolean = false;
 
   constructor(
     private activatedRoute:ActivatedRoute,
@@ -25,23 +27,40 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.location = this.activatedRoute.snapshot.params.location;
     this.searchService.saveLastSearch(this.location);
 
-    this.barSub = this.searchService.getBars(this.location).subscribe(json => {
-      console.log(json);
-      
-      if(!json.error){
-        this.bars = json.data.businesses;
-      }else{
-        this.error = true;
-      }
-    })
+    this.loadBars();
   }
 
   ngOnDestroy(){
     this.barSub.unsubscribe();
   }
 
+  loadBars(){
+    this.barSub = this.searchService.getBars(this.location, this.offset).subscribe(json => {
+      console.log(this.offset,json);
+
+      if(!json.error){
+        this.bars.push(...json.data.businesses);
+
+        if(json.data.total > this.bars.length){
+          this.showLoadExtra = true;
+        }else{
+          this.showLoadExtra = false;
+        }
+
+      }else{
+        this.error = true;
+      }
+    });
+  }
+
   onBack(){
     this.router.navigate(["/"], {queryParams: {searchTerm: this.location}});
+  }
+
+  onLoadExtra(){
+    this.offset += 50;
+    this.barSub.unsubscribe();
+    this.loadBars();
   }
 
 }
