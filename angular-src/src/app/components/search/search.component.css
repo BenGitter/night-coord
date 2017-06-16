@@ -24,9 +24,15 @@ span.back{
   cursor: pointer;
 }
 
+.going{
+  background: #BBB;
+  text-align: center;
+}
 
-
-
+.go_here{
+  text-decoration: underline;
+  cursor: pointer;
+}
 
 /* Loading Spinner*/
 .spinner {

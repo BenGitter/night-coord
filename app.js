@@ -10,6 +10,8 @@ const request = require("request");
 const config = require("./config/database");
 const yelp = require("./config/yelp");
 
+const bar = require("./models/bar");
+
 // Mongoose
 mongoose.connect(config.database);
 mongoose.connection.on("connected", () => {
@@ -53,11 +55,38 @@ app.get("/api/bars/", (req, res) => {
     if(json.error){
       res.json({success: false, error: json.error.code});
     }else{
-      res.json({success: true, data: json});
+      let waiting = json.businesses.length;
+      json.businesses.forEach((val, i) => {
+        bar.count({bar_id: val.id}, (err, count) => {
+          json.businesses[i].count = count;
+          waiting--;
+
+          if(waiting == 0){
+            res.json({success: true, data: json});
+          }
+        });
+      });
+      
     }
     
-  })
+  });
   // res.send("Invalid Endpoint");
+});
+
+app.post("/api/bar", (req, res) => {
+  let bar_id = req.body.bar_id;
+  let user_id = req.body.user_id;
+
+  let doc = new bar({bar_id, user_id});
+  console.log(doc);
+  doc.save((err) => {
+    if(err){
+      res.json({success: false, msg: err});
+    }else{
+      res.json({success: true, msg: "Doc added"});
+    }
+  })
+  
 });
 
 app.get("*", (req, res) => {

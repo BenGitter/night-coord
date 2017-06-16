@@ -27,6 +27,10 @@ export class AuthService {
       .map(res => res.json());  
   }
 
+  getId(){
+    return JSON.parse(localStorage.getItem("user")).id;
+  }
+
   getProfile(){
     this.loadToken();
 
