@@ -57,8 +57,8 @@ app.get("/api/bars/", (req, res) => {
     }else{
       let waiting = json.businesses.length;
       json.businesses.forEach((val, i) => {
-        bar.count({bar_id: val.id}, (err, count) => {
-          json.businesses[i].count = count;
+        bar.find({bar_id: val.id}, (err, bars) => {
+          json.businesses[i].people = bars;
           waiting--;
 
           if(waiting == 0){

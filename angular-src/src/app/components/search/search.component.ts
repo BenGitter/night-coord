@@ -12,7 +12,7 @@ import { AuthService } from '../../services/auth.service';
 export class SearchComponent implements OnInit, OnDestroy {
 
   location: string;
-  bars: Array<{id, count, bar_id, user_id}> = [];
+  bars: Array<{id, count, bar_id, user_id, people}> = [];
   error: boolean = false;
   offset: number = 0;
   barSub;
@@ -63,7 +63,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     if(this.authService.loggedIn()){
       this.bars.forEach((val:{id}, i) => {
         if(val.id == bar_id){
-          this.bars[i].count++;
+          this.bars[i].people.push({user_id: this.authService.getId()});
         }
       })
 
