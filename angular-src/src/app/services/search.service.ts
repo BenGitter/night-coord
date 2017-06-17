@@ -36,4 +36,12 @@ export class SearchService {
       .map(res => res.json());
   }
 
+  getBarsByUserId(id:string){
+    let headers = new Headers();
+    headers.append("Content-Type", "application/json");
+
+    return this.http.get("/api/bars/"+id, {headers: headers})
+      .map(res => res.json());
+  }
+
 }

@@ -1,0 +1,9 @@
+.remove{
+  float: right;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.remove:hover{
+  text-decoration: underline;
+}

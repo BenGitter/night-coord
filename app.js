@@ -99,6 +99,16 @@ app.post("/api/bar/delete", (req, res) => {
   })
 }); 
 
+app.get("/api/bars/:id", (req, res) => {
+  let user_id = req.params.id;
+
+  bar.find({user_id:user_id}, (err, bars) => {
+    if(err) res.json({success: false, msg: err});
+
+    res.json({success: true, docs: bars});
+  })
+});
+
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "public/index.html"));
 });
