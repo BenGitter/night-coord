@@ -86,11 +86,16 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   going(people:Array<any>){
-    let x = people.find((el, i) => {
-      return el.user_id  = this.authService.getId();
-    });
+    if(this.authService.loggedIn()){
+      let x = people.find((el, i) => {
+        return el.user_id == this.authService.getId();
+      });
 
-    return !x;
+      return !x;
+    }else{
+      return true;
+    }
+    
   }
 
   onLoadExtra(){
