@@ -2,6 +2,8 @@
 node_modules
 .env
 
+/public
+
 # compiled output
 angular-src/dist
 angular-src/tmp
