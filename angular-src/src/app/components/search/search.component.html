@@ -23,7 +23,7 @@
       </div>
     </div>
 
-    <div *ngFor="let bar of bars" class="row bar">
+    <div *ngFor="let bar of bars; let i = index" class="row bar">
       <div class="col-xs-4 img-container">
         <img [src]="bar.image_url || 'http://via.placeholder.com/250/ccc/ccc'" alt="">
       </div>
@@ -41,7 +41,8 @@
       </div>
       <div class="col-xs-12 going">
         {{ bar.people.length }} people going,
-        <span class="go_here" (click)="goToBar(bar.id)">go here!</span>
+        <span *ngIf="going(bar.people)" class="go_here" (click)="goToBar(bar.id, i)">go here!</span>
+        <span *ngIf="!going(bar.people)" class="go_here" (click)="removeFromBar(bar.id, i)">you too!</span>
       </div>
     </div>
 

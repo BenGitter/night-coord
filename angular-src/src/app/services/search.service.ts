@@ -28,4 +28,12 @@ export class SearchService {
       .map(res => res.json());
   }
 
+  removeBar(bar_id:string, user_id:string){
+    let headers = new Headers();
+    headers.append("Content-Type", "application/json");
+
+    return this.http.post("/api/bar/delete", {bar_id: bar_id, user_id: user_id}, {headers: headers})
+      .map(res => res.json());
+  }
+
 }

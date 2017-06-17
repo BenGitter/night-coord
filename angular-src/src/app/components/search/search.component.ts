@@ -59,13 +59,9 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.router.navigate(["/"], {queryParams: {searchTerm: this.location}});
   }
 
-  goToBar(bar_id){
+  goToBar(bar_id:string, index:number){
     if(this.authService.loggedIn()){
-      this.bars.forEach((val:{id}, i) => {
-        if(val.id == bar_id){
-          this.bars[i].people.push({user_id: this.authService.getId()});
-        }
-      })
+      this.bars[index].people.push({user_id: this.authService.getId()});
 
       let user_id = this.authService.getId();
       this.searchService.addBar(bar_id, user_id).subscribe(data => {
@@ -74,7 +70,27 @@ export class SearchComponent implements OnInit, OnDestroy {
     }else{
       this.router.navigate(["/login"]);
     }
-    
+  }
+
+  removeFromBar(bar_id:string, index:number){
+    for(let i = 0; i < this.bars[index].people.length; i++){
+      if(this.bars[index].people[i].user_id === this.authService.getId()){
+        this.bars[index].people.splice(i, 1);
+      }
+    }
+
+    let user_id = this.authService.getId();
+    this.searchService.removeBar(bar_id, user_id).subscribe(data => {
+      console.log(data);
+    });
+  }
+
+  going(people:Array<any>){
+    let x = people.find((el, i) => {
+      return el.user_id  = this.authService.getId();
+    });
+
+    return !x;
   }
 
   onLoadExtra(){

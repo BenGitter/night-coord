@@ -86,8 +86,18 @@ app.post("/api/bar", (req, res) => {
       res.json({success: true, msg: "Doc added"});
     }
   })
-  
 });
+
+app.post("/api/bar/delete", (req, res) => {
+  let bar_id = req.body.bar_id;
+  let user_id = req.body.user_id;
+
+  bar.remove({bar_id:bar_id, user_id:user_id}, (err) => {
+    if(err) res.json({success: false, msg: err});
+
+    res.json({success: true, msg: "Doc removed"});
+  })
+}); 
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "public/index.html"));
